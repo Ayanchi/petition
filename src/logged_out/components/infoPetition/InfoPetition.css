@@ -1,0 +1,59 @@
+.infoPet{
+    margin-top: 50px;
+    padding: 150px 150px 0px 150px;
+}
+.infoPet_info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.desition{
+    display: flex;
+}
+.desition1p{
+    margin-right: 10px;
+}
+.button{
+    width: 100%;
+    background-color: red;
+    border-radius: 10px;
+    padding: 10px 15px;
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-size: 20px;
+}
+.info_text{
+    margin-left: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+}
+p{
+    font-size: 20px;
+}
+.info_pet_image{
+    width: 100%;
+}
+.ppp{
+    display: flex;
+    flex-direction: row;
+}
+@media(max-width: 1000px){
+    .ppp{
+        flex-direction: column;
+    }
+    .info_text{
+        margin-left: 0px;
+    }
+    .infoPet{
+        padding: 50px 50px 0px 50px;
+    }
+}
+@media (max-width: 500px){
+    .infoPet{
+        padding: 10px 10px 0px 10px;
+    }
+}

@@ -1,0 +1,43 @@
+#count_progects{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+#card_count_progects{
+    margin: 0px 50px;
+    text-align: center;
+    border-bottom: 1px solid black;
+}
+#card_count_progects h1{
+    font-weight: 400;
+}
+#container_aboutUs{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.aboutUs_text{
+    text-align: center;
+    margin-left: 100px;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+@media(max-width:957px){
+    #container_aboutUs{
+        flex-direction: column;
+        justify-content: center;
+    }
+    .aboutUs_text{
+        margin-left: 0px;
+        margin-top: 50px;
+    }
+   
+}
+
+@media (max-width:563px){
+    #aboutUs_img{
+        width: 350px;
+    }
+}
