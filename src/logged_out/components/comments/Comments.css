@@ -1,0 +1,148 @@
+.comments-title {
+  font-size: 30px;
+  font-family: Helvetica, Arial, sans-serif;
+  margin-top: 40px;
+}
+
+.css-1l4w6pd {
+  flex-direction: column;
+  align-items: center;
+}
+
+.comments-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.comment {
+  border-bottom: 1px solid #e1e8ed;
+  padding: 16px;
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #1da1f2;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.user-info {
+  margin-left: 8px;
+}
+
+.user-name {
+  font-weight: bold;
+}
+
+.comment-time {
+  color: #657786;
+  font-size: 12px;
+}
+
+.comment-text {
+  margin-top: 8px;
+  font-size: 16px;
+}
+
+.comment-actions {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.like-button {
+  background-color: transparent;
+  border: none;
+  color: #1da1f2;
+  cursor: pointer;
+  margin-right: 16px;
+}
+
+.reply-button {
+  background-color: transparent;
+  border: none;
+  color: #1da1f2;
+  cursor: pointer;
+}
+
+.comment-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #e1e8ed;
+  border-radius: 4px;
+  margin-top: 16px;
+  font-size: 16px;
+}
+
+.comment-input::placeholder {
+  color: #657786;
+}
+
+.comment-input:focus {
+  outline: none;
+  border-color: #1da1f2;
+}
+
+.fire-button {
+  background-color: transparent;
+  border: none;
+  margin-right: 15px;
+}
+
+.reply-container {
+  margin-top: 16px;
+}
+
+.comment-input.typing::placeholder {
+  animation: blink-caret 0.75s step-end infinite;
+}
+
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #1da1f2;
+  }
+}
+
+.comment-submit-button {
+  background-color: #1da1f2;
+  color: #fff;
+  border: none;
+  padding: 8px 16;
+}
+
+.comment-input-container {
+    display: flex;
+    align-items: center;
+    background-color: white; 
+    padding: 8px;
+  }
+  
+  .comment-input {
+    flex: 1;
+    border: 1px solid #e1e8ed;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 16px;
+  }
+  
+  .send-button {
+    background-color: transparent;
+    border: none;
+    margin-left: 8px;
+    cursor: pointer;
+  }
