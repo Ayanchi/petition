@@ -6,13 +6,11 @@ import {
   Box,
   IconButton,
   Hidden,
-  TextField,
 } from "@mui/material";
 import withStyles from "@mui/styles/withStyles";
 import PhoneIcon from "@mui/icons-material/Phone";
 import MailIcon from "@mui/icons-material/Mail";
 import WaveBorder from "../../../shared/components/WaveBorder";
-import ColoredButton from "../../../shared/components/ColoredButton";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 const styles = (theme) => ({
@@ -165,31 +163,13 @@ function Footer(props) {
       <div className={classes.footerInner}>
         <Grid container spacing={isWidthUpMd ? 10 : 5}>
           <Grid item xs={12} md={6} lg={4}>
-            <form>
-              <Box display="flex" flexDirection="column">
-                <Box mb={1}>
-                  <TextField
-                    variant="outlined"
-                    multiline
-                    placeholder="Get in touch with us"
-                    InputProps={{
-                      className: classes.whiteBg,
-                      "aria-label": "Get in Touch",
-                    }}
-                    rows={4}
-                    fullWidth
-                    required
-                  />
-                </Box>
-                <ColoredButton
-                  color={theme.palette.common.white}
-                  variant="outlined"
-                  type="submit"
-                >
-                  Send Message
-                </ColoredButton>
-              </Box>
-            </form>
+            <div>
+              <img
+                src={`${process.env.PUBLIC_URL}/images/logged_out/logo.png`}
+                alt="Logo"
+                className={classes.logo}
+              />
+            </div>
           </Grid>
           <Hidden lgDown>
             <Grid item xs={12} md={6} lg={4}>
@@ -224,7 +204,7 @@ function Footer(props) {
           </Hidden>
           <Grid item xs={12} md={6} lg={4}>
             <Typography variant="h6" paragraph className="text-white">
-              About the Company
+              Наши социальные сети
             </Typography>
             <Typography style={{ color: "#8f9296" }} paragraph>
               Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce
@@ -250,6 +230,7 @@ function Footer(props) {
     </footer>
   );
 }
+
 
 Footer.propTypes = {
   theme: PropTypes.object.isRequired,
