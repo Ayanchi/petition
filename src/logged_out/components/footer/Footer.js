@@ -1,12 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  Grid,
-  Typography,
-  Box,
-  IconButton,
-  Hidden,
-} from "@mui/material";
+import "./Footer.css";
+import { Grid, Typography, Box, IconButton, Hidden } from "@mui/material";
 import withStyles from "@mui/styles/withStyles";
 import PhoneIcon from "@mui/icons-material/Phone";
 import MailIcon from "@mui/icons-material/Mail";
@@ -15,7 +10,6 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 
 const styles = (theme) => ({
   footerInner: {
-    backgroundColor: theme.palette.common.darkBlack,
     paddingTop: theme.spacing(8),
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
@@ -97,7 +91,7 @@ const socialIcons = [
       </svg>
     ),
     label: "Github",
-    href: "https://github.com/dunky11/react-saas-template",
+    href: "https://github.com/Ayanchi/petition/invitations",
   },
   {
     icon: (
@@ -165,9 +159,10 @@ function Footer(props) {
           <Grid item xs={12} md={6} lg={4}>
             <div>
               <img
-                src={`${process.env.PUBLIC_URL}/images/logged_out/logo.png`}
+                src={`${process.env.PUBLIC_URL}/images/logged_in/logotip.png`}
                 alt="Logo"
                 className={classes.logo}
+                class= 'footer-logo'
               />
             </div>
           </Grid>
@@ -206,9 +201,11 @@ function Footer(props) {
             <Typography variant="h6" paragraph className="text-white">
               Наши социальные сети
             </Typography>
-            <Typography style={{ color: "#8f9296" }} paragraph>
-              Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce
-              euismod convallis velit, eu auctor lacus vehicula sit amet.
+            <Typography style={{ color: "#C4CACD" }} paragraph>
+              Присоединяйтесь к нам!!!
+            </Typography>
+            <Typography style={{ color: "#C4CACD" }} paragraph>
+              Сделаем изменения вместе: ваш голос - наша сила!
             </Typography>
             <Box display="flex">
               {socialIcons.map((socialIcon, index) => (
@@ -230,7 +227,6 @@ function Footer(props) {
     </footer>
   );
 }
-
 
 Footer.propTypes = {
   theme: PropTypes.object.isRequired,

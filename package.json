@@ -15,6 +15,7 @@
     "@stripe/react-stripe-js": "^1.4.1",
     "@stripe/stripe-js": "^1.16.0",
     "aos": "^2.3.4",
+    "axios": "^1.5.0",
     "classnames": "^2.3.1",
     "emoji-mart": "^3.0.1",
     "js-cookie": "^3.0.1",
@@ -68,11 +69,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dunky11/react-saas-template.git"
+    "url": "git+https://github.com/Ayanchi/petition/invitations"
   },
   "author": "dunky11",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dunky11/react-saas-template/issues"
+    "url": "https://github.com/Ayanchi/petition/invitations"
   }
 }

@@ -4,6 +4,7 @@ import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import SendIcon from "@mui/icons-material/Send";
 import { blue } from "@mui/material/colors";
 
+
 export default function Comments() {
   const [fireCount1, setFireCount1] = useState(0);
   const [isOnFire1, setIsOnFire1] = useState(false);
@@ -63,7 +64,7 @@ export default function Comments() {
 
       <div className="comment">
         <div className="comment-header">
-          <div className="user-avatar">Avatar</div>
+          <div className="user-avatar">Bird</div>
           <div className="user-info">
             <p className="user-name">Username</p>
           </div>

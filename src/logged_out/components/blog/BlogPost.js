@@ -1,13 +1,15 @@
-import React, {  useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import format from "date-fns/format";
 import { Typography, Card, Box, Button } from "@mui/material";
-import withStyles from '@mui/styles/withStyles';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import withStyles from "@mui/styles/withStyles";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ZoomImage from "../../../shared/components/ZoomImage";
-import './BlogPost.css'
 import Comments from "../comments/Comments";
+import { URL } from "./const/url";
+import "./BlogPost.css";
+import axios from 'axios';
 
 const styles = (theme) => ({
   blogContentWrapper: {
@@ -33,15 +35,30 @@ const styles = (theme) => ({
 });
 
 function BlogPost(props) {
-  const { classes, date, title, src, content } = props;
-
+  const { classes, date, title, src, content, postId, currentLang } = props;
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
+  const [comments, setComments] = useState([]);
+  const [setLoading] = useState(true);
 
   const handleLike = () => {
     setLiked(!liked);
     setLikeCount(liked ? likeCount - 1 : likeCount + 1);
   };
+
+  const fetchComments = async () => {
+    try {
+      const response = await axios.get(`${URL}comments/getByPetitionId`);
+      setComments(response.data.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Ошибка при запросе данных:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchComments();
+  }, [currentLang, postId]);
 
   return (
     <div>
@@ -67,8 +84,11 @@ function BlogPost(props) {
               {content}
               <Box pt={2}>
                 <Button
-                  startIcon={<ThumbUpIcon style={{ color: liked ? "yellow" : "grey" }} />}
+                  startIcon={
+                    <ThumbUpIcon style={{ color: liked ? "blue" : "grey" }} />
+                  }
                   onClick={handleLike}
+                  className="liked-post"
                 >
                   Пост нравится {likeCount} людям
                 </Button>
@@ -76,7 +96,7 @@ function BlogPost(props) {
             </Box>
           </Card>
         </div>
-        <Comments />
+        <Comments comments={comments} />
       </Box>
     </div>
   );
@@ -88,6 +108,8 @@ BlogPost.propTypes = {
   date: PropTypes.number.isRequired,
   src: PropTypes.string.isRequired,
   content: PropTypes.node.isRequired,
+  postId: PropTypes.number.isRequired,
+  currentLang: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles, { withTheme: true })(BlogPost);
