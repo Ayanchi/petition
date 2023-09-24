@@ -1,12 +1,79 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import './InfoPetition.css'
 import image from '../../../assets/pettition.jpg'
+import axios from "axios"
+import { URL } from "../../../const/url"
+import { useParams } from "react-router-dom"
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import TextField from '@mui/material/TextField';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 export default function InfoPetition(){
+    const [petIdData, setPetIdData] = useState([])
+    const {petId} = useParams();
+    const token = localStorage.getItem('token')
+
+    const [inn, setInn] = useState()
+
+    const [opesn, setOpesn] = React.useState(false);
+    const handleOpsen = () => setOpesn(true);
+    const handleClosse = () => setOpesn(false);
+
+
+    useEffect(() => {
+        axios.get(`${URL}/petition/getById/${petId}`)
+        .then((response) => {
+            setPetIdData(response.data);
+          })
+        .catch((error) => {
+            console.log(error);
+        });
+    },[])
+
+    const handlePatition = () => {
+        axios.post(`${URL}/person/update/person`
+        ,{
+            inn,
+            headers: {
+              'Authorization ' : `Bearer ${token}`,
+            },
+            
+        })
+    }
+
+
+    console.log(petIdData)
     return(
         <section className="infoPet">
+            <Button onClick={handleOpsen} className="inn">ИНН</Button>
+            <Modal
+                open={opesn}
+                onClose={handleClosse}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+                >
+               <Box sx={style}>
+                    
+                    <TextField id="standard-basic" label="ИНН" variant="standard" value={inn} onChan={(e) => setInn(e.target.value)}/>
+                    <Button onClick={() => handlePatition()}>отправить</Button>
+
+                </Box>
+            </Modal>
             <div className="infoPet_info">
-                <h1>Требуем отозвать проект постановления о Парке креативных индустрий от 11 августа 2023 года</h1>
+                <h1>{petIdData.name}</h1>
                 <div className="ppp">
                     <div className="image_petition_info">
                         <img src={image} alt="" className="info_pet_image"/>
@@ -15,18 +82,18 @@ export default function InfoPetition(){
                                 <p className="desition1p"> Подписи: 2000</p> <p>Цель: 4000</p>
                             </div>
                         
-                            <button className="button">Подписать петицию</button>
+                            <Button className="button">Подписать петицию</Button>
                         </div>
                     </div>
                     
                     <div className="info_text">
-                        <p>Создано: 22 aвгю 2022</p>
+                        <p> автор: {petIdData.author}</p>
 
 
                         <h2>Почему эта петиция важна</h2>
                         <div>
                             <span>
-                            Уважаемый Президент Садыр Нургожоевич Жапаров,
+                            {petIdData.description}
                             </span>
                         </div>
                     </div>

@@ -8,6 +8,7 @@ import BlogPost from "./blog/BlogPost";
 import useLocationBlocker from "../../shared/functions/useLocationBlocker";
 import Petitions from "./petition/Petition";
 import InfoPetition from "./infoPetition/InfoPetition";
+import Regist from "./rigist/Regist";
 
 function Routing(props) {
   const { blogPosts, selectBlog, selectHome } = props;
@@ -28,6 +29,7 @@ function Routing(props) {
           )}
         />
       ))}
+    
       <PropsRoute
         exact
         path="/blog"
@@ -35,6 +37,7 @@ function Routing(props) {
         selectBlog={selectBlog}
         blogPosts={blogPosts}
       />
+      <PropsRoute path="/regist" component={Regist}/>
       <PropsRoute path="/petition/:petId" component={InfoPetition}/>
       <PropsRoute path="/petition" component={Petitions} />
       

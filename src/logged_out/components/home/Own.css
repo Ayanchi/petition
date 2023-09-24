@@ -23,6 +23,11 @@
     font-size: 20px;
     font-weight: 400;
 }
+textarea{
+    margin-top: 10px;
+    width: 300px;
+    height: 350px;
+}
 
 @media(max-width:957px){
     #container_aboutUs{

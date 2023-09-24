@@ -5,11 +5,10 @@ import { AppBar, Toolbar, Typography, Button, Hidden, IconButton } from "@mui/ma
 import withStyles from '@mui/styles/withStyles';
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
-import HowToRegIcon from "@mui/icons-material/HowToReg";
+// import HowToRegIcon from "@mui/icons-material/HowToReg";
 import BookIcon from "@mui/icons-material/Book";
 import NavigationDrawer from "../../../shared/components/NavigationDrawer";
 import ListAltIcon from '@mui/icons-material/ListAlt';
-import LockOpenIcon from "@mui/icons-material/LockOpen";
 
 const styles = theme => ({
   appBar: {
@@ -34,16 +33,18 @@ const styles = theme => ({
   }
 });
 
+
+
 function NavBar(props) {
   const {
     classes,
-    openRegisterDialog,
-    openLoginDialog,
     handleMobileDrawerOpen,
     handleMobileDrawerClose,
     mobileDrawerOpen,
     selectedTab
   } = props;
+
+  
   const menuItems = [
     {
       link: "/",
@@ -56,21 +57,26 @@ function NavBar(props) {
       icon: <BookIcon className="text-white" />
     },
     {
-      name: "Register",
-      onClick: openRegisterDialog,
-      icon: <HowToRegIcon className="text-white" />
-    },
-    {
-      name: "Login",
-      onClick: openLoginDialog,
-      icon: <LockOpenIcon className="text-white" />
-    },
-    {
       link: "/petition",
       name: "Petitions",
       icon: <ListAltIcon className="text-white" />
     },
+    {
+      link: "/login",
+      name: "LogIn",
+      icon: <ListAltIcon className="text-white" />
+    },
+    {
+      link: "/regist",
+      name: "regist",
+    },
+    {
+      link: "/logout",
+      name: "logout",
+    },
+
   ];
+
   return (
     <div className={classes.root} >
       <AppBar position="fixed" className={classes.appBar}>
@@ -82,7 +88,7 @@ function NavBar(props) {
               display="inline"
               color="primary"
             >
-              Wa
+              Info
             </Typography>
             <Typography
               variant="h4"
@@ -90,7 +96,7 @@ function NavBar(props) {
               display="inline"
               color="secondary"
             >
-              Ver
+              Void
             </Typography>
           </div>
           <div>

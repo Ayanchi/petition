@@ -12,6 +12,7 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import MailIcon from "@mui/icons-material/Mail";
 import WaveBorder from "../../../shared/components/WaveBorder";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import image from '../../../assets/photo1695525595.jpeg'
 
 const styles = (theme) => ({
   footerInner: {
@@ -165,7 +166,7 @@ function Footer(props) {
           <Grid item xs={12} md={6} lg={4}>
             <div>
               <img
-                src={`${process.env.PUBLIC_URL}/images/logged_out/logo.png`}
+                src={image}
                 alt="Logo"
                 className={classes.logo}
               />

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { Grid, Typography, Card, Button, Hidden, Box } from "@mui/material";
@@ -7,6 +7,25 @@ import WaveBorder from "../../../shared/components/WaveBorder";
 import ZoomImage from "../../../shared/components/ZoomImage";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import pettition from '../../../assets/pettition.jpg'
+import Modal from '@mui/material/Modal';
+import TextField from '@mui/material/TextField';
+import axios from "axios";
+import { URL } from "../../../const/url";
+import './Own.css'
+
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  height: 500,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 const styles = (theme) => ({
   extraLargeButtonLabel: {
@@ -93,7 +112,28 @@ const styles = (theme) => ({
 
 function HeadSection(props) {
   const { classes, theme } = props;
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const token = localStorage.getItem('token')
+  console.log(token)
+
   const isWidthUpLg = useMediaQuery(theme.breakpoints.up("lg"));
+
+  const handleSubmit = () => {
+    axios.post(`${URL}/publication/add`,
+    {
+      title,
+      description
+    },
+    {
+      headers: {
+        Authorization : `Bearer ${token}`,
+      }
+    })
+  }
 
   return (
     <Fragment>
@@ -116,7 +156,7 @@ function HeadSection(props) {
                     >
                       <Box mb={4}>
                         <Typography variant={isWidthUpLg ? "h3" : "h4"}>
-                          Здеси можно создать обсуждение
+                          Здесь можно создать обсуждение
                         </Typography>
                       </Box>
                       <div>
@@ -134,9 +174,23 @@ function HeadSection(props) {
                           fullWidth
                           className={classes.extraLargeButton}
                           classes={{ label: classes.extraLargeButtonLabel }}
+                          onClick={handleOpen}
                         >
                           Создать обсуждение
                         </Button>
+                        <Modal
+                          open={open}
+                          onClose={handleClose}
+                          aria-labelledby="modal-modal-title"
+                          aria-describedby="modal-modal-description"
+                        >
+                          <Box sx={style}>
+                          <TextField value={title} onChange={(e) => setTitle(e.target.value)} id="standard-basic" label="Тема" variant="standard" />
+                          <textarea value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
+                          <Button onClick={handleSubmit}>создать</Button>
+
+                          </Box>
+                        </Modal>
                       </div>
                     </Box>
                   </Grid>

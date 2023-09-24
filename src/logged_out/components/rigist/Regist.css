@@ -1,0 +1,10 @@
+.form_reg{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.main_reg{
+    margin-top: 200px;
+    text-align: center;
+}
