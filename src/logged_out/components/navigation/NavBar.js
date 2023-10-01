@@ -5,7 +5,6 @@ import { AppBar, Toolbar, Typography, Button, Hidden, IconButton } from "@mui/ma
 import withStyles from '@mui/styles/withStyles';
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
-// import HowToRegIcon from "@mui/icons-material/HowToReg";
 import BookIcon from "@mui/icons-material/Book";
 import NavigationDrawer from "../../../shared/components/NavigationDrawer";
 import ListAltIcon from '@mui/icons-material/ListAlt';
@@ -34,6 +33,9 @@ const styles = theme => ({
 });
 
 
+const token = localStorage.getItem('token')
+const admin = localStorage.getItem('admin')
+
 
 function NavBar(props) {
   const {
@@ -43,6 +45,11 @@ function NavBar(props) {
     mobileDrawerOpen,
     selectedTab
   } = props;
+
+  function logOut(){
+    localStorage.removeItem('token')
+    localStorage.removeItem('admin')
+  }
 
   
   const menuItems = [
@@ -61,21 +68,42 @@ function NavBar(props) {
       name: "Petitions",
       icon: <ListAltIcon className="text-white" />
     },
+  ];
+
+  const isAdmin = admin
+  ? [
+      {
+        link: "/admin",
+        name: "AdminPanel",
+      },
+      {
+        name: "Logout",
+        onClick: logOut,
+      },
+    ]
+  : [];
+
+  const isAuth = token ?
+  [
+    {
+      name: "Logout",
+      onClick: logOut
+    },
+  ]
+  :
+  [
     {
       link: "/login",
       name: "LogIn",
-      icon: <ListAltIcon className="text-white" />
     },
     {
       link: "/regist",
-      name: "regist",
+      name: "Regist",
     },
-    {
-      link: "/logout",
-      name: "logout",
-    },
+  ]
 
-  ];
+  const allMenuItems = [...menuItems, ...isAdmin, ...isAuth];
+
 
   return (
     <div className={classes.root} >
@@ -96,7 +124,7 @@ function NavBar(props) {
               display="inline"
               color="secondary"
             >
-              Void
+              Voite
             </Typography>
           </div>
           <div>
@@ -110,9 +138,9 @@ function NavBar(props) {
               </IconButton>
             </Hidden>
             <Hidden mdDown>
-              {menuItems.map(element => {
+              {allMenuItems.map(element => {
                 if (element.link) {
-                  return (
+                  return (  
                     <Link
                       key={element.name}
                       to={element.link}
@@ -146,7 +174,7 @@ function NavBar(props) {
         </Toolbar>
       </AppBar>
       <NavigationDrawer
-        menuItems={menuItems}
+        menuItems={allMenuItems}
         anchor="right"
         open={mobileDrawerOpen}
         selectedItem={selectedTab}
@@ -162,8 +190,6 @@ NavBar.propTypes = {
   handleMobileDrawerClose: PropTypes.func,
   mobileDrawerOpen: PropTypes.bool,
   selectedTab: PropTypes.string,
-  openRegisterDialog: PropTypes.func.isRequired,
-  openLoginDialog: PropTypes.func.isRequired
 };
 
 export default withStyles(styles, { withTheme: true })(memo(NavBar));

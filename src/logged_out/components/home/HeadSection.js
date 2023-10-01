@@ -9,10 +9,10 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import pettition from '../../../assets/pettition.jpg'
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
+import Alert from '@mui/material/Alert';
 import axios from "axios";
 import { URL } from "../../../const/url";
 import './Own.css'
-
 
 const style = {
   position: 'absolute',
@@ -20,7 +20,7 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
-  height: 500,
+  height: 600,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -112,28 +112,51 @@ const styles = (theme) => ({
 
 function HeadSection(props) {
   const { classes, theme } = props;
-  const [title, setTitle] = useState('')
+  const [name, setTitle] = useState('')
   const [description, setDescription] = useState('')
+  const [file, setFileData] = useState('')
+  const [successError, setSuccessError] = useState('')
   const [open, setOpen] = React.useState(false);
+  // const [publication, setPublication] = useState([])
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
   const token = localStorage.getItem('token')
-  console.log(token)
+  const [empty, setEmpty] = useState('')
 
   const isWidthUpLg = useMediaQuery(theme.breakpoints.up("lg"));
 
-  const handleSubmit = () => {
-    axios.post(`${URL}/publication/add`,
-    {
-      title,
-      description
-    },
-    {
-      headers: {
-        Authorization : `Bearer ${token}`,
-      }
-    })
-  }
+  // /file/upload/image/publication
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if(!token){
+      return setEmpty(<Alert severity="error">войдите в систему</Alert>)
+    }
+    try {
+      const response = await axios.post(`${URL}/publication/add`,
+        {
+          name,
+          description,
+        },
+        {
+           headers: {'Authorization': 'Bearer ' + token}
+        },
+      )
+      console.log(response.data)
+      // setPublication(response.data)
+      setTitle('')
+      setDescription('')
+      handleClose()
+      setSuccessError(<Alert severity="success">This is a success alert — check it out!</Alert>)
+    
+    } catch (error) {
+      console.error('Error:', error);
+      setSuccessError(<Alert severity="error">This is an error alert — check it out!</Alert>)
+    }
+  };
+  
 
   return (
     <Fragment>
@@ -153,6 +176,7 @@ function HeadSection(props) {
                       flexDirection="column"
                       justifyContent="center"
                       height="100%"
+                      sx={{margin: '20px'}}
                     >
                       <Box mb={4}>
                         <Typography variant={isWidthUpLg ? "h3" : "h4"}>
@@ -185,12 +209,30 @@ function HeadSection(props) {
                           aria-describedby="modal-modal-description"
                         >
                           <Box sx={style}>
-                          <TextField value={title} onChange={(e) => setTitle(e.target.value)} id="standard-basic" label="Тема" variant="standard" />
-                          <textarea value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
+                          <TextField 
+                            value={name} 
+                            onChange={(e) => setTitle(e.target.value)} 
+                            id="standard-basic" 
+                            label="Тема" 
+                            variant="standard"
+                            required
+                          />
+                          <TextField
+                            value={file} 
+                            onChange={(e) => setFileData(e.target.value)} 
+                            type="file" 
+                            id="standard-basic" 
+                            label="File" 
+                            variant="standard" 
+                            required
+                          />
+                          <textarea value={description} onChange={(e) => setDescription(e.target.value)} required></textarea>
                           <Button onClick={handleSubmit}>создать</Button>
+                          {empty}
 
                           </Box>
                         </Modal>
+                        {successError}
                       </div>
                     </Box>
                   </Grid>

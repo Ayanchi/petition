@@ -4,46 +4,55 @@ import { Switch } from "react-router-dom";
 import PropsRoute from "../../shared/components/PropsRoute";
 import Home from "./home/Home";
 import Blog from "./blog/Blog";
-import BlogPost from "./blog/BlogPost";
-import useLocationBlocker from "../../shared/functions/useLocationBlocker";
 import Petitions from "./petition/Petition";
 import InfoPetition from "./infoPetition/InfoPetition";
 import Regist from "./rigist/Regist";
+import Login from "./login/Login";
+import BlogPost from "./blog/BlogPost";
+import AdminAuth from "./adminAuth/AdminAuth";
+import Paperbase from "./adminPage/PaperbasePublic";
+import PaperbasePetish from "./adminPage/PaperbasePetish";
+import PaperbasePublick from "./adminPage/PaperbasePublic";
 
 function Routing(props) {
   const { blogPosts, selectBlog, selectHome } = props;
-  useLocationBlocker();
+  const isAuth = localStorage.getItem('token')
+  const isAdmin = localStorage.getItem('admin')
+
   return (
     <Switch>
-      {blogPosts.map((post) => (
-        <PropsRoute
-          path={post.url}
-          component={BlogPost}
-          title={post.title}
-          key={post.title}
-          src={post.src}
-          date={post.date}
-          content={post.content}
-          otherArticles={blogPosts.filter(
-            (blogPost) => blogPost.id !== post.id
-          )}
-        />
-      ))}
-    
-      <PropsRoute
-        exact
-        path="/blog"
-        component={Blog}
-        selectBlog={selectBlog}
-        blogPosts={blogPosts}
-      />
-      <PropsRoute path="/regist" component={Regist}/>
-      <PropsRoute path="/petition/:petId" component={InfoPetition}/>
-      <PropsRoute path="/petition" component={Petitions} />
       
-      <PropsRoute path="/" component={Home} selectHome={selectHome} />
+      <PropsRoute exact path="/" component={Home} selectHome={selectHome} />
+
+      <PropsRoute
+      path="/blog/:blogId"
+      component={BlogPost}
+      />
+
+      <PropsRoute
+      path="/blog"
+      component={Blog}
+      selectBlog={selectBlog}
+      blogPosts={blogPosts}
+      />
+    
+    <PropsRoute path="/petition/:petId" component={InfoPetition} />
+    <PropsRoute path="/petition" component={Petitions} />
+
+    <PropsRoute path="/adminPage/patition" component={PaperbasePetish} />
+    <PropsRoute path="/adminPage/publication" component={PaperbasePublick} />
+    <PropsRoute path="/adminPage" component={Paperbase} />
+
+    {(!isAuth || !isAdmin) && (
+      <>
+        <PropsRoute path='/login' component={Login} />
+        <PropsRoute path='/regist' component={Regist} />
+        <PropsRoute path='/admin' component={AdminAuth} />
+      </>
+    )}
 
     </Switch>
+    
   );
 }
 

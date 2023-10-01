@@ -1,1 +1,1 @@
-export const URL = 'http://192.168.0.128:8355'
+export const URL = 'https://hackathon-production-6cb9.up.railway.app'

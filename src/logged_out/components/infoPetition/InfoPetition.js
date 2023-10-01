@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
+import Alert from "@mui/material/Alert";
 
 const style = {
   position: 'absolute',
@@ -31,7 +32,7 @@ export default function InfoPetition(){
     const [opesn, setOpesn] = React.useState(false);
     const handleOpsen = () => setOpesn(true);
     const handleClosse = () => setOpesn(false);
-
+    const [emptyComment, setEmptyComment] = useState('')
 
     useEffect(() => {
         axios.get(`${URL}/petition/getById/${petId}`)
@@ -43,19 +44,26 @@ export default function InfoPetition(){
         });
     },[])
 
+    console.log(petIdData)
+
     const handlePatition = () => {
-        axios.post(`${URL}/person/update/person`
-        ,{
-            inn,
-            headers: {
-              'Authorization ' : `Bearer ${token}`,
-            },
-            
-        })
+        if(!token){
+            return setEmptyComment(<Alert severity="error">войдите в систему</Alert>)
+        }
+        try {
+            axios.post(`${URL}/petition/signToPetition/${petId}`,
+                {},
+                {
+                    headers: {
+                        'Authorization ' : `Bearer ` + token,
+                    },
+                }
+            )
+        } catch (error) {
+            console.log(error)
+        }
     }
 
-
-    console.log(petIdData)
     return(
         <section className="infoPet">
             <Button onClick={handleOpsen} className="inn">ИНН</Button>
@@ -68,7 +76,7 @@ export default function InfoPetition(){
                <Box sx={style}>
                     
                     <TextField id="standard-basic" label="ИНН" variant="standard" value={inn} onChan={(e) => setInn(e.target.value)}/>
-                    <Button onClick={() => handlePatition()}>отправить</Button>
+                    <Button>отправить</Button>
 
                 </Box>
             </Modal>
@@ -82,8 +90,9 @@ export default function InfoPetition(){
                                 <p className="desition1p"> Подписи: 2000</p> <p>Цель: 4000</p>
                             </div>
                         
-                            <Button className="button">Подписать петицию</Button>
+                            <Button onClick={() => handlePatition()} className="button">Подписать петицию</Button>
                         </div>
+                        {emptyComment}
                     </div>
                     
                     <div className="info_text">

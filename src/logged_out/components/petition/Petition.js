@@ -8,16 +8,6 @@ import { URL } from "../../../const/url";
 export default function Petitions(){
 
     const[dataPetition, setDataPetition] = useState([])
-    const token = localStorage.getItem('token');
-    console.log(token)
-
-    useEffect(() => {
-        try {
-            axios.get(`${URL}/`)
-        } catch (error) {
-            console.log(error)
-        }
-    }, [])
 
     useEffect(() => {
         axios.get(`${URL}/petition/allPetitions`)
@@ -30,7 +20,6 @@ export default function Petitions(){
         });
     }, [])
 
-    console.log(dataPetition)
     return(
         <section className="petition_section">
             {dataPetition.map((el, ind) => (

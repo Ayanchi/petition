@@ -8,51 +8,40 @@ import axios from "axios";
 export default function Regist(){
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [name, setName] = useState("")
-    const [surename, setSurename] = useState("")
-    const [token, setToken] = useState("")
+    const [firstname, setName] = useState("")
+    const [lastname, setSurename] = useState("")
+    // const [token, setToken] = useState("")
 
     const navigate = useHistory()
 
-    const handleSubmit = async (event) => {
-        event.preventDefault()
-        try {
-            const response = await axios.post(`${URL}/api/v1/auth/register`, {
-                firstname: name,
-                lastname: surename,
-                email: email,
-                password: password,
-            }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            setToken(response.data);
-            localStorage.setItem('token', JSON.stringify(response.data.access_token));
-            navigate.push('/');
-        } catch (error) {
-            console.error(error);
-            if (error.response) {
-                // The request was made and the server responded with a status code
-                // that falls out of the range of 2xx
-                console.error('Response data:', error.response.data);
-                console.error('Response status:', error.response.status);
-                console.error('Response headers:', error.response.headers);
-            } else if (error.request) {
-                // The request was made but no response was received
-                console.error('Request data:', error.request);
-            } else {
-                // Something happened in setting up the request that triggered an Error
-                console.error('Error', error.message);
-            }
-        }
-    }
+    const handleSubmit = async() => {
 
-    console.log(token)
+        try {
+          const response = await axios.post(`${URL}/api/v1/auth/register`, {
+
+            firstname,
+            lastname,
+            email,
+            password,
+            
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+          console.log('success');
+          console.log(response);
+          localStorage.setItem('token', JSON.stringify(response.data.access_token));
+          navigate.push('/');
+        } catch (error) {
+          console.error(error);
+        }
+    };
      
     return(
         <section className="main_reg">
-             <form autoComplete="off" >
+             <form >
                 <h2>Регистрация</h2>
                 <div className="form_reg">
                     <TextField 
@@ -64,7 +53,7 @@ export default function Regist(){
                         type="name"
                         sx={{width: '300px', marginBottom: '20px'}}
                         fullWidth
-                        value={name}
+                        value={firstname}
                     />
                     <TextField 
                         label="Фамилия"
@@ -75,7 +64,7 @@ export default function Regist(){
                         type="surename"
                         sx={{width: '300px', marginBottom: '20px'}}
                         fullWidth
-                        value={surename}
+                        value={lastname}
                     />
                     <TextField 
                         label="Email"
@@ -86,6 +75,7 @@ export default function Regist(){
                         type="email"
                         sx={{width: '300px', marginBottom: '20px'}}
                         fullWidth
+                        autoComplete="username"
                         value={email}
                     />
                     <TextField 
@@ -97,15 +87,16 @@ export default function Regist(){
                         type="password"
                         value={password}
                         fullWidth
+                        autoComplete="current-password"
                         sx={{width: '300px', marginBottom: '20px'}}
                     />
                     <Button 
                         variant="outlined" 
                         color="secondary" 
                         type="submit"
-                        onClick={handleSubmit}
+                        onClick={() => handleSubmit()}
                         sx={{marginTop:' 20px'}}>
-                            зарегестрироваться
+                            зарегистрироваться
                     </Button>
                 </div>
         </form>

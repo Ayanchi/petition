@@ -1,0 +1,14 @@
+.blogcard{
+    width: 400px;
+    margin: 0px 20px 20px 20px;
+}
+.main_blogcard{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.blogcard_description{
+    width: min-content;
+}

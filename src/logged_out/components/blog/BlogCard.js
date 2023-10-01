@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import format from "date-fns/format";
 import classNames from "classnames";
 import { Typography, Card, Box } from "@mui/material";
-
+import image from '../../../assets/pettition.jpg'
+import "./BlogPost.css"
 import withStyles from '@mui/styles/withStyles';
 
 const styles = (theme) => ({
@@ -52,47 +52,41 @@ const styles = (theme) => ({
 });
 
 function BlogCard(props) {
-  const { classes, url, src, date, title, snippet } = props;
+  const { classes, } = props;
 
   return (
-    <Card className={classes.card}>
-      {src && (
-        <Link to={url} tabIndex={-1}>
-          <img src={src} className={classes.img} alt="" />
+    <>
+      <Card className={classes.card} id="card">
+      {image && (
+        <Link to={`blog/${props.blog.petitionId}`} tabIndex={-1}>
+          <img src={image} className={classes.img} alt="" />
         </Link>
       )}
       <Box p={2}>
-        <Typography variant="body2" color="textSecondary">
-          {format(new Date(date * 1000), "PPP", {
-            awareOfUnicodeTokens: true,
-          })}
-        </Typography>
-        <Link
-          to={url}
+        <Link to={`blog/${props.blog.petitionId}`}
           className={classNames(classes.noDecoration, classes.showFocus)}
         >
           <Typography variant="h6">
-            <span className={classes.title}>{title}</span>
+            <span className={classes.title}>{props.blog.name}</span>
           </Typography>
         </Link>
-        <Typography variant="body1" color="textSecondary">
-          {snippet}
-          <Link to={url} className={classes.noDecoration} tabIndex={-1}>
+        <Typography style={{display: 'flex'}} variant="body1" color="textSecondary">
+          <div className="blogcard_description" >{props.blog.description}</div>
+          <Link to={`blog/${props.blog.petitionId}`} className={classes.noDecoration} tabIndex={-1}>
             <span className={classes.link}> подробнее...</span>
           </Link>
         </Typography>
       </Box>
-    </Card>
+      </Card>
+      <div style={{backgroundColor: 'red'}}>{props.name}</div>
+  </>
+
+    
   );
 }
 
 BlogCard.propTypes = {
   classes: PropTypes.object.isRequired,
-  url: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  date: PropTypes.number.isRequired,
-  snippet: PropTypes.string.isRequired,
-  src: PropTypes.string,
 };
 
 export default withStyles(styles, { withTheme: true })(BlogCard);
