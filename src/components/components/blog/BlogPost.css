@@ -1,0 +1,21 @@
+.blogcard{
+    width: 400px;
+    margin: 0px 20px 20px 20px;
+}
+.main_blogcard{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.blogcard_description{
+    width: min-content;
+}
+#link_text{
+    word-wrap: break-word;
+    max-width: 85%;
+}
+.blogPost_main{
+    padding: 20px;
+}

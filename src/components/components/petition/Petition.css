@@ -1,0 +1,35 @@
+.petition_section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+    padding: 0px 50px;
+}
+.petition_box{
+    margin-top: 100px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    background-color: #f6f4f6;
+    border-radius: 20px;
+
+}
+.petition_box img{
+    max-width: 200px;
+}
+.hidden{
+    overflow: hidden !important;
+    text-decoration: none;
+    color: black;
+}
+.petition_box_text{
+    padding: 0px 20px;
+}
+@media(max-width: 870px){
+    .petition_box{
+        flex-direction: column;
+    }
+    .petition_box img{
+        max-width: 100%;
+    }
+}
