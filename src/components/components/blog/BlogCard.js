@@ -6,6 +6,7 @@ import { Typography, Card, Box } from "@mui/material";
 import image from '../../../assets/pettition.jpg'
 import "./BlogPost.css"
 import withStyles from '@mui/styles/withStyles';
+import noImage from '../../../assets/icon-no-image.svg'
 
 const styles = (theme) => ({
   img: {
@@ -53,13 +54,14 @@ const styles = (theme) => ({
 
 function BlogCard(props) {
   const { classes, } = props;
+  console.log(props.blog.fileDataResponse)
 
   return (
     <>
       <Card className={classes.card} id="card">
       {image && (
         <Link to={`blog/${props.blog.petitionId}`} tabIndex={-1}>
-          <img src={image} className={classes.img} alt="" />
+          <img src={(props.blog.fileDataResponse === null) ? noImage : props.blog.fileDataResponse} className={classes.img} alt="" />
         </Link>
       )}
       <Box p={2}>

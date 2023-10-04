@@ -22,7 +22,9 @@ export default function Petitions(){
 
     return(
         <section className="petition_section">
-            {dataPetition.map((el, ind) => (
+            {dataPetition
+            // .filter((el) => )
+            .map((el, ind) => (
                 <Link to={`petition/${el.id}`} className="hidden">
                     {console.log(el.id)}
                 <div className="petition_box">
